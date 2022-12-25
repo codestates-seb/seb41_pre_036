@@ -7,6 +7,8 @@ import Signup from "./pages/Register/Signup";
 import Logout from "./pages/Register/Logout";
 import Tags from "./pages/Tags";
 import Users from "./pages/Users";
+import Mypage from "./pages/Mypage";
+import Header from "./components/Header";
 
 const router = createBrowserRouter([
   {
@@ -39,10 +41,18 @@ const router = createBrowserRouter([
     path: "/users",
     element: <Users />,
   },
+  {
+    path: "/mypage",
+    element: <Mypage />,
+  },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
