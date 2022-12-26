@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import LogoImg from "../assets/sprites.svg";
 import DefaultAvatar from "../assets/default-avatar.svg";
-import { Icon } from "style-components";
+import Icon from "../assets/favicons.png";
 
 export const Gnb = styled.header`
   position: fixed;

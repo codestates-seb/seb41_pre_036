@@ -236,6 +236,8 @@ export default function Signup() {
     formState: { isSubmitting, errors },
   } = useForm();
 
+  console.log(errors);
+
   const emailRegister = register("email", {
     required: { value: true, message: "Email cannot be empty." },
     pattern: {
@@ -255,7 +257,7 @@ export default function Signup() {
   });
 
   const onSubmit = (data) => {
-    // console.log(data);
+    console.log(data);
   };
   return (
     <Container>
