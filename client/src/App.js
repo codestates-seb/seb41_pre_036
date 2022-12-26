@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import styled from "styled-components";
 import NotFound from "./pages/NotFound";
 import QuestionDetail from "./pages/Questions/QuestionDetail";
 import QuestionsList from "./pages/Questions/QuestionsList";
