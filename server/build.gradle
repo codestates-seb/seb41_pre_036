@@ -33,7 +33,6 @@ dependencies {
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	runtimeOnly 'com.h2database:h2'
 	implementation 'mysql:mysql-connector-java'
 
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'

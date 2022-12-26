@@ -66,16 +66,16 @@ public class QuestionControllerRestDocsTest {
     void postQuestionTest() throws Exception {
         // given
         QuestionDto.Post postDto = new QuestionDto.Post(1L,
-                "질문 제목1",
-                "질문 본문1입니다. 이것은 왜 그런가요?",
+                "질문 제목1 - 이것은 왜 그런가요? oo에 따라 xx를 해봤는데 안 됩니다",
+                "질문 본문1입니다. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 이것은 왜 그런가요?",
                 Arrays.asList(new TagDto.Request(1L), new TagDto.Request(2L), new TagDto.Request(3L)));
         String content = gson.toJson(postDto);
 
         QuestionDto.SimpleResponse responseDto = new QuestionDto.SimpleResponse(1L,
                 1L,
                 "orangetree",
-                "질문 제목1",
-                "질문 본문1입니다. 이것은 왜 그런가요?",
+                "질문 제목1 - 이것은 왜 그런가요? oo에 따라 xx를 해봤는데 안 됩니다",
+                "질문 본문1입니다. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 이것은 왜 그런가요?",
                 0L,
                 List.of(new TagDto.Response(1L, "JavaScript"), new TagDto.Response(2L, "Java"), new TagDto.Response(3L, "SQL")),
                 0L,
@@ -140,14 +140,14 @@ public class QuestionControllerRestDocsTest {
         LocalDateTime time1 = LocalDateTime.now();
         Long questionId = 1L;
 
-        QuestionDto.Patch patchDto = new QuestionDto.Patch(1L, "질문1 제목 수정", "질문1 본문 수정합니다. 저것은 무엇인가요?", Arrays.asList(new TagDto.Request(4L), new TagDto.Request(2L)));
+        QuestionDto.Patch patchDto = new QuestionDto.Patch(1L, "질문1 제목 수정 - 저것은 무엇인가요? 차이점이 궁금합니다", "질문1 본문 수정합니다. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). 저것은 무엇인가요?", Arrays.asList(new TagDto.Request(4L), new TagDto.Request(2L)));
         String content = gson.toJson(patchDto);
 
         QuestionDto.SimpleResponse responseDto = new QuestionDto.SimpleResponse(1L,
                 1L,
                 "orangetree",
-                "질문1 제목 수정",
-                "질문1 본문 수정합니다. 저것은 무엇인가요?",
+                "질문1 제목 수정 - 저것은 무엇인가요? 차이점이 궁금합니다",
+                "질문1 본문 수정합니다. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). 저것은 무엇인가요?",
                 0L,
                 Arrays.asList(new TagDto.Response(4L, "Spring"), new TagDto.Response(2L, "Java")),
                 5L,
@@ -208,8 +208,8 @@ public class QuestionControllerRestDocsTest {
         QuestionDto.DetailResponse responseDto = new QuestionDto.DetailResponse(1L,
                 1L,
                 "orangetree",
-                "질문 제목1",
-                "질문 본문1입니다. 이것은 왜 그런가요?",
+                "질문 제목1 - 이것은 왜 그런가요? oo에 따라 xx를 해봤는데 안 됩니다",
+                "질문 본문1입니다. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 이것은 왜 그런가요?",
                 14L,
                 List.of(new TagDto.Response(1L, "JavaScript"), new TagDto.Response(2L, "Java"), new TagDto.Response(3L, "SQL")),
                 List.of(
@@ -318,7 +318,7 @@ public class QuestionControllerRestDocsTest {
         // then
         actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").isArray())
-                .andDo(document("get-guestions",
+                .andDo(document("get-questions",
                         getResponsePreProcessor(),
                         requestParameters(List.of(
                                 parameterWithName("page").description("페이지 번호"),
@@ -362,7 +362,7 @@ public class QuestionControllerRestDocsTest {
 
         // then
         actions.andExpect(status().isNoContent())
-                .andDo(document("delete-questions",
+                .andDo(document("delete-question",
                         pathParameters(parameterWithName("question-id").description("질문 식별자"))));
     }
 

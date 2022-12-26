@@ -43,7 +43,6 @@ public class QuestionService {
         return questionRepository.save(question);
     }
      */
-
     public Question createQuestion(Question question, Long memberId) {
         question.setMember(memberService.findMember(memberId));
 //        question.setQuestionTags(question.getQuestionTags());
