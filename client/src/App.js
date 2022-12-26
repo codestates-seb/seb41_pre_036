@@ -8,18 +8,8 @@ import Signup from "./pages/Register/Signup";
 import Logout from "./pages/Register/Logout";
 import Tags from "./pages/Tags";
 import Users from "./pages/Users";
+import Mypage from "./pages/Mypage";
 import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import Footer from "./components/Footer";
-
-const Homepage = styled.div`
-  max-width: 1264px;
-  width: 100%;
-  background: none;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-`;
 
 const router = createBrowserRouter([
   {
@@ -52,17 +42,16 @@ const router = createBrowserRouter([
     path: "/users",
     element: <Users />,
   },
+  {
+    path: "/mypage",
+    element: <Mypage />,
+  },
 ]);
 
 function App() {
   return (
     <>
-      <Header />
-      <Homepage>
-        <Sidebar />
-        <RouterProvider router={router} />
-      </Homepage>
-      <Footer />
+      <RouterProvider router={router} />
     </>
   );
 }

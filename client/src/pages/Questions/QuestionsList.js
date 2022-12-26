@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Footer from "../../components/Footer";
+import LayoutContainer from "../../components/LayoutContainer";
+import PageContainer from "../../components/PageContainer";
+import Sidebar from "../../components/Sidebar";
+import Header from "../../components/Header";
 
 const Mainbar = styled.div`
   border-left: 1px solid hsl(210, 8%, 85%);
@@ -48,42 +53,13 @@ export default function QuestionsList() {
 
   return (
     <>
-      <Mainbar>
-        <Dflex>
-          <h1>All Questions</h1>
-          <button>Ask Question</button>
-        </Dflex>
-        <Dflex>
-          <div>7,143,884 questions with no upvoted or accepted answers</div>
-          <div>
-            <button>Newest</button>
-            <button>Active</button>
-            <button>Bountied</button>
-            <button>Unanswered</button>
-            <button>More</button>
-            <button>Filter</button>
-          </div>
-        </Dflex>
-        <Questions>
-          {question.map((ele) => (
-            <Summary>
-              <Stats>
-                <Items> {ele.votes} votes</Items>
-                <Items> {ele.answers} answers</Items>
-                <Items> {ele.views} views</Items>
-              </Stats>
-              <Content>
-                <h3> {ele.title} </h3>
-                <div>
-                  {" "}
-                  {ele.userID} {ele.reputation} modified {ele.modified}{" "}
-                </div>
-              </Content>
-            </Summary>
-          ))}
-        </Questions>
-      </Mainbar>
-      <div>Right Sidebar</div>
+     <Header />
+      <Sidebar />
+      <LayoutContainer>
+        <PageContainer>
+        </PageContainer>
+      </LayoutContainer>
+      <Footer />
     </>
   );
 }
