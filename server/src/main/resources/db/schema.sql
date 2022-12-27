@@ -8,7 +8,7 @@ drop table if exists question_tag;
 
 drop table if exists tag;
 
-drop table if exists vote;
+drop table if exists answerVote;
 
 create table answer (
                         answer_id bigint not null auto_increment,
@@ -56,7 +56,7 @@ create table tag (
                      primary key (tag_id)
 );
 
-create table vote (
+create table answerVote (
                       answer_id bigint not null,
                       member_id bigint not null,
                       opinion integer,
@@ -88,12 +88,12 @@ alter table question_tag
         foreign key (tag_id)
             references tag (tag_id);
 
-alter table vote
+alter table answerVote
     add constraint FKa3aku0wi48fisg9cwprvmhy76
         foreign key (answer_id)
             references answer (answer_id);
 
-alter table vote
+alter table answerVote
     add constraint FKgkbgl6xp2rpgwghb7mtyuv48h
         foreign key (member_id)
             references member (member_id);

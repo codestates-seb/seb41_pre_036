@@ -2,7 +2,8 @@ package com.codestates.preproject.member.entity;
 
 import com.codestates.preproject.answer.entity.Answer;
 import com.codestates.preproject.question.entity.Question;
-import com.codestates.preproject.answervote.entity.Vote;
+import com.codestates.preproject.answervote.entity.AnswerVote;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Member {
     @Id
@@ -30,7 +32,7 @@ public class Member {
     private List<Answer> answers = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
-    private List<Vote> votes = new ArrayList<>();
+    private List<AnswerVote> answerVotes = new ArrayList<>();
 
     public void setQuestion(Question question) {
         questions.add(question);
