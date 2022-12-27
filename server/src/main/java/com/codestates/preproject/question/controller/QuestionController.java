@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("/questions")
 @Validated
 public class QuestionController {
-//    private final static String QUESTION_DEFAULT_URL = "/questions";
+    //    private final static String QUESTION_DEFAULT_URL = "/questions";
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
 
@@ -61,6 +61,7 @@ public class QuestionController {
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive Long questionId,
                                         @Valid @RequestBody QuestionDto.Patch requestBody) {
         requestBody.setQuestionId(questionId);
+        System.out.println(requestBody.getTags().get(0).getTagId()); // todo 수정된 태그 정보는 잘 넘어옴
         Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(requestBody));
 //        return ResponseEntity.ok(getLocation(question.getQuestionId()));
         return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionSimpleResponseDto(question)), HttpStatus.OK);
@@ -76,14 +77,26 @@ public class QuestionController {
     }
 
     // 기능4a = 'top questions' = 메인페이지 = 질문 전체 조회 + default로 newest순으로 정렬
-    @GetMapping
-    public ResponseEntity getQuestionsByCreatedAt(@Positive @RequestParam int page, @Positive @RequestParam int size) {
-        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+    @GetMapping()
+    public ResponseEntity getQuestionsByCreatedAt(@Positive @RequestParam(required = false, defaultValue = "1") int page,
+                                                  @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+        Page<Question> pageQuestions = questionService.findQuestionsByCreatedAt(page - 1, size);
         List<Question> questions = pageQuestions.getContent();
         return new ResponseEntity<>(new MultiResponseDto<>(questionMapper.questionsToQuestionSimpleResponseDtos(questions), pageQuestions), HttpStatus.OK);
     }
-    // 기능4b = 'questions' = 왼쪽 사이드바 = 질문 전체 조회 + default로 답변 개수 내림차순으로 정렬(+newest, unanswered(no upvoted or accepted answers) 등 순으로 조회)
-    // 기능4c = '내비게이션 바 검색창' = 특정 검색어 관련 질문 조회 + default로 관련성 내림차순으로 정렬(+newest 등 순으로 조회)
+
+    // 기능4b = 'questions' = 왼쪽 사이드바 = 질문 전체 조회 + default로 답변 개수 내림차순으로 정렬(+newest, unanswered(no upvoted or accepted answers) 등 순으로 조회) = 중요도 '중'
+    // 기능4c = '내비게이션 바 검색창' = 특정 검색어 관련 질문 조회 + default로 관련성 내림차순으로 정렬(+newest 등 순으로 조회) = 중요도 '상'
+    // 요청 ur 예시 = https://stackoverflow.com/search?q=java+jpa+sql
+    @GetMapping("/search")
+    public ResponseEntity searchQuestionsByTitleOrContent(@RequestParam("q") String searchText,
+                                                          @Positive @RequestParam(required = false, defaultValue = "1") int page,
+                                                          @Positive @RequestParam(required = false, defaultValue = "15") int size) {
+        Page<Question> pageQuestions = questionService.findQuestionsByTitleOrContent(searchText, searchText,page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
+        return new ResponseEntity<>(new MultiResponseDto<>(questionMapper.questionsToQuestionSimpleResponseDtos(questions), pageQuestions), HttpStatus.OK);
+    }
+
     // 기능4d = '사이트 내 태그 클릭' = 특정 태그 관련 질문 조회 + 답변 개수 내림차순으로 정렬
 
     // 기능5 = 질문 삭제

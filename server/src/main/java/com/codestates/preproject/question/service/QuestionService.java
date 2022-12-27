@@ -1,5 +1,7 @@
 package com.codestates.preproject.question.service;
 
+import com.codestates.preproject.exception.BusinessLogicException;
+import com.codestates.preproject.exception.ExceptionCode;
 import com.codestates.preproject.member.service.MemberService;
 import com.codestates.preproject.question.entity.Question;
 import com.codestates.preproject.question.entity.QuestionTag;
@@ -44,57 +46,103 @@ public class QuestionService {
     }
      */
     public Question createQuestion(Question question, Long memberId) {
-        question.setMember(memberService.findMember(memberId));
-//        question.setQuestionTags(question.getQuestionTags());
-//        question.setQuestionTags(question.);
-//        System.out.println(question.getTags().get(0).toString()); // QuestionTag{questionTagId=null, question=null, tag=null}
-//        System.out.println("questionTags의 첫번째 요소 = " + question.getQuestionTags().get(0).getTagId());
-        verifyQuestionTags(question.getQuestionTags());
-
-        List<QuestionTag> questionTags = question.getQuestionTags().stream().map(questionTag -> {
-//            question.addQuestionTag(questionTag);
-            questionTag.setQuestion(question);
-            questionTag.setTag(tagService.findTag(questionTag.getTag().getTagId()));
-//            for (QuestionTag qt : question.getQuestionTags()) {
-//                questionTag.setTag(tagService.findTag(qt.getTagId()));
-//            }
-//            questionTag.setTag(tagService.findTag(question.getTag().getTagId()));
-            return questionTag;
-        }).collect(Collectors.toList());
-        question.setQuestionTags(questionTags);
+//        System.out.println(question.getQuestionTags().get(0).getTagWord()); //todo QuestionTag{questionTagId=null, question=null, tag=null}
+        verifyQuestion(question);
 
         return questionRepository.save(question);
     }
 
     public Question updateQuestion(Question question) {
+        // todo 본인이 작성한 글만 수정 가능
+        verifyQuestion(question);
+//        System.out.println(question.toString());
         Question verifiedQuestion = findVerifiedQuestion(question.getQuestionId());
-//        System.out.println(verifiedQuestion); // todo
-        Question updatedQuestion = beanUtils.copyNonNullProperties(question, verifiedQuestion);
-//        System.out.println(updatedQuestion); // todo
-        return questionRepository.save(updatedQuestion);
+//        System.out.println(verifiedQuestion);
+//        System.out.println("변경 전 태그 단어 = " + verifiedQuestion.getQuestionTags().get(0).getTagWord()); // todo 변경 전 태그 단어 = JavaScript
+//        Question updatedQuestion = beanUtils.copyNonNullProperties(question, verifiedQuestion);
+
+        Optional.ofNullable(question.getQuestionTitle()).ifPresent(questionTitle -> verifiedQuestion.setQuestionTitle(questionTitle));
+        Optional.ofNullable(question.getQuestionContent()).ifPresent(questionContent -> verifiedQuestion.setQuestionContent(questionContent));
+//        Optional.ofNullable(question.getQuestionTags()).ifPresent(questionTags -> verifiedQuestion.setQuestionTags(question.getQuestionTags())); // 변경 후 태그 단어 = null
+
+        if (question.getQuestionTags() != null) {
+            List<QuestionTag> questionTags = question.getQuestionTags().stream().map(questionTag -> {
+                questionTag.addQuestion(question);
+                questionTag.addTag(tagService.findTag(questionTag.getTagId()));
+
+//                questionTag.setQuestion(question);
+//                questionTag.setTag();
+//                questionTag.getTag().setTagId(tagService.findTag(questionTag.getTagId()).getTagId());
+//                questionTag.getTag().setTagWord(tagService.findTag(questionTag.getTagId()).getTagWord());
+                return questionTag;
+            }).collect(Collectors.toList());
+
+            verifiedQuestion.setQuestionTags(questionTags);
+        }
+        System.out.println("변경 후 1번째 태그 단어 = " + verifiedQuestion.getQuestionTags().get(0).getTagWord()); // todo 변경 후 1번째 태그 단어 = Spring
+        System.out.println("변경 후 1번째 태그 번호 = " + verifiedQuestion.getQuestionTags().get(0).getTagId()); // todo 변경 후 1번째 태그 번호 = 4
+        // 이상 questionTags 객체들에도 필요한 데이터 다 반영한 것 같은데..
+
+        Question updatedQuestion = questionRepository.save(verifiedQuestion);
+//        System.out.println(verifiedQuestion.toString());
+//        System.out.println(updatedQuestion.toString());
+//        System.out.println("변경 후 1번째 태그 번호 = " + verifiedQuestion.getQuestionTags().get(0).getTagId()); // todo 윗줄과 똑같이 접근하는데 왜 여기 getTagId()에서는 null pointer exception 발생하지?
+//        System.out.println("변경 내역을 저장한 질문의 1번째 태그 번호 = " + updatedQuestion.getQuestionTags().get(0).getTagId());
+        return updatedQuestion;
     }
 
     public Question findQuestion(Long questionId) {
-        return findVerifiedQuestion(questionId);
+        Question foundQuestion = findVerifiedQuestion(questionId);
+
+        // '질문 작성자가 현재 글 조회하는 사람이 아니면' 조건 추가
+        foundQuestion = updateViews(foundQuestion);
+
+        return foundQuestion;
     }
 
-    public Page<Question> findQuestions(int page, int size) {
-        return questionRepository.findAll(PageRequest.of(page, size)); // 답변 개수 순서대로 정렬하는 건 repository에서?
+    // 기능4a = 'top questions' = 메인페이지 = 질문 전체 조회 + default로 newest순으로 정렬
+    public Page<Question> findQuestionsByCreatedAt(int page, int size) {
+        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionId").descending())); // 답변 개수 순서대로 정렬하는 건 repository에서?
+    }
+
+    public Page<Question> findQuestionsByTitleOrContent(String title, String content, int page, int size) {
+        return questionRepository.findByQuestionTitleContainingIgnoreCaseOrQuestionContentContainingIgnoreCase(title, content, PageRequest.of(page, size, Sort.by("views").descending()));
     }
 
     public void deleteQuestion(Long questionId) {
+        // todo 본인이 작성한 글만 수정 가능
         Question findQuestion = findVerifiedQuestion(questionId);
         questionRepository.delete(findQuestion);
     }
 
     public Question findVerifiedQuestion(Long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
-        Question verifiedQuestion = optionalQuestion.orElseThrow();
-
+        Question verifiedQuestion = optionalQuestion.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         return verifiedQuestion;
     }
 
+    public void verifyQuestion(Question question) {
+        // 질문을 작성한 회원이 유효한지/존재하는지 확인
+        if (question.getMember() != null) {
+            question.setMember(memberService.findVerifiedMember(question.getMemberId()));
+        }
+
+        // 태그가 존재하는지 확인
+        question.getQuestionTags().stream().forEach(questionTag -> questionTag.setTag(tagService.findVerifiedTag(questionTag.getTagId())));
+    }
+    /*
     public void verifyQuestionTags(List<QuestionTag> questionTags) {
         questionTags.forEach(questionTag -> tagService.findTag(questionTag.getTag().getTagId()));
+    }
+
+    public Question saveQuestion(Question question) {
+        return questionRepository.save(question);
+    }
+     */
+
+    public Question updateViews(Question foundQuestion) {
+        foundQuestion.setViews(foundQuestion.getViews() + 1);
+        return questionRepository.save(foundQuestion);
     }
 }

@@ -2,14 +2,15 @@ package com.codestates.preproject.question.entity;
 
 import com.codestates.preproject.answer.entity.Answer;
 import com.codestates.preproject.member.entity.Member;
+import com.mysql.cj.protocol.ColumnDefinition;
 import lombok.*;
 //import org.springframework.data.domain.Auditable;
 import com.codestates.preproject.audit.Auditable;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class Question extends Auditable {
     private String questionImage;
 
     @Column
+    @ColumnDefault(value = "0")
     private Long views;
 
     @ManyToOne
@@ -49,8 +51,9 @@ public class Question extends Auditable {
         return member.getNickname();
     }
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST, targetEntity = QuestionTag.class, orphanRemoval = true)
     @ToString.Exclude
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<QuestionTag> questionTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)

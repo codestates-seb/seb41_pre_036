@@ -1,11 +1,7 @@
-package com.codestates.preproject.vote.entity;
+package com.codestates.preproject.answervote.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 

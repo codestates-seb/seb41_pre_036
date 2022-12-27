@@ -1,7 +1,7 @@
-package com.codestates.preproject.vote.mapper;
+package com.codestates.preproject.answervote.mapper;
 
-import com.codestates.preproject.vote.dto.VoteDto;
-import com.codestates.preproject.vote.entity.Vote;
+import com.codestates.preproject.answervote.dto.VoteDto;
+import com.codestates.preproject.answervote.entity.Vote;
 import org.mapstruct.Mapper;
 
 import java.util.List;

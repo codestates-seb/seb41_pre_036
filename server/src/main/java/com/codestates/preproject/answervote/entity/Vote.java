@@ -1,12 +1,10 @@
-package com.codestates.preproject.vote.entity;
+package com.codestates.preproject.answervote.entity;
 
 import com.codestates.preproject.answer.entity.Answer;
 import com.codestates.preproject.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 

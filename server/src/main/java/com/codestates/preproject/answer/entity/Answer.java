@@ -3,7 +3,7 @@ package com.codestates.preproject.answer.entity;
 import com.codestates.preproject.audit.Auditable;
 import com.codestates.preproject.member.entity.Member;
 import com.codestates.preproject.question.entity.Question;
-import com.codestates.preproject.vote.entity.Vote;
+import com.codestates.preproject.answervote.entity.Vote;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

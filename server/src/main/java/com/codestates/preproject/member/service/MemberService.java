@@ -19,10 +19,10 @@ public class MemberService {
     }
 
     public Member findMember(Long memberId) {
-        return findVerifiedMemberById(memberId);
+        return findVerifiedMember(memberId);
     }
 
-    public Member findVerifiedMemberById(Long memberId) {
+    public Member findVerifiedMember(Long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
         Member verifiedMember = optionalMember.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));

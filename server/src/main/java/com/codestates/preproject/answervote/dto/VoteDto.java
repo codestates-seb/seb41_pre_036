@@ -1,12 +1,10 @@
-package com.codestates.preproject.vote.dto;
+package com.codestates.preproject.answervote.dto;
 
-import com.codestates.preproject.vote.entity.VoteId;
+import com.codestates.preproject.answervote.entity.VoteId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.Positive;
 
 public class VoteDto {
     @Getter

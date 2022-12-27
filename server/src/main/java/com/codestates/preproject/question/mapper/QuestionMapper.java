@@ -2,6 +2,7 @@ package com.codestates.preproject.question.mapper;
 
 import com.codestates.preproject.answer.dto.AnswerDto;
 import com.codestates.preproject.answer.entity.Answer;
+import com.codestates.preproject.member.entity.Member;
 import com.codestates.preproject.question.dto.QuestionDto;
 import com.codestates.preproject.question.entity.Question;
 import com.codestates.preproject.question.entity.QuestionTag;
@@ -23,52 +24,40 @@ public interface QuestionMapper {
             return null;
         }
 
-        Question.QuestionBuilder questionBuilder = Question.builder();
+        Question question = new Question();
 
-        questionBuilder.questionTitle(requestBody.getQuestionTitle());
-//        questionBuilder.user(user); //이거 questionService의 createQuetion에서 또 설정한다. 확인요망!!!
-        questionBuilder.questionContent(requestBody.getQuestionContent());
+        question.setQuestionTitle(requestBody.getQuestionTitle());
+        question.setQuestionContent(requestBody.getQuestionContent());
 
-        Question question = questionBuilder.build();
+        Member member = new Member();
+        member.setMemberId(requestBody.getMemberId());
+
         if (requestBody.getTags() != null) {
-            TagMapper tapMapper = new TagMapperImpl();
+            List<QuestionTag> questionTags = requestBody.getTags().stream().map(tagRequestDto -> {
+                QuestionTag questionTag = new QuestionTag();
+                Tag tag = new Tag();
 
-            List<QuestionTag> questionTags = requestBody.getTags().stream()
-                    .map(tagRequestDto -> {
-                        Tag.TagBuilder tag = Tag.builder();
-                        tag.tagId(tagRequestDto.getTagId());
+                tag.setTagId(tagRequestDto.getTagId());
 
-                        QuestionTag.QuestionTagBuilder questionTag = QuestionTag.builder();
-//                    questionTag.question(question); //이때 저장된 question은 questionTagList가 저장 안됐는데 괜찮나??
-                        questionTag.tag(tag.build());
-                        return questionTag.build();
-                    }).collect(Collectors.toCollection(ArrayList::new));
+                questionTag.addQuestion(question);
+                questionTag.addTag(tag);
+                return questionTag;
+            }).collect(Collectors.toList());
             question.setQuestionTags(questionTags);
         } else {
             List<QuestionTag> questionTags = new ArrayList<>();
             question.setQuestionTags(questionTags);
         }
+
+        question.setMember(member);
         return question;
     }
-    /* 방법1)
-    questionPostDto.GetTagDtoList().stream()
-        .map(tagDto -> TagMapper.tagDtoToTag(tagDto))
-        .map(tag -> {
-            // map tag to questionTag
-        })
-        .collect(...)
 
-    방법2) use a mapper inside another mapper
-    questionPostDto.GetTagDtoList().stream()
-        .map(tagDto -> TagMapper.tagDtoToTag(tagDto))
-        .map(tag -> myCustomQuestionTagMapperFunction(tag))
-        .collect(...)
-     */
 
     default Question questionPatchDtoToQuestion(QuestionDto.Patch requestBody) {
         if (requestBody == null) {
             return null;
-        } else {
+        } /*lse {
             Question.QuestionBuilder questionBuilder = Question.builder();
             questionBuilder.questionId(requestBody.getQuestionId());
             questionBuilder.questionTitle(requestBody.getQuestionTitle());
@@ -91,9 +80,32 @@ public interface QuestionMapper {
             } else {
                 List<QuestionTag> questionTags = new ArrayList<>();
                 question.setQuestionTags(questionTags);
-            }
-            return question;
+            }*/
+
+        Question question = new Question();
+
+        question.setQuestionId(requestBody.getQuestionId());
+        question.setQuestionTitle(requestBody.getQuestionTitle());
+        question.setQuestionContent(requestBody.getQuestionContent());
+
+        if (requestBody.getTags() != null) {
+            List<QuestionTag> questionTags = requestBody.getTags().stream().map(tagRequestDto -> {
+                QuestionTag questionTag = new QuestionTag();
+                Tag tag = new Tag();
+
+                tag.setTagId(tagRequestDto.getTagId());
+
+                questionTag.addQuestion(question);
+                questionTag.addTag(tag);
+                return questionTag;
+            }).collect(Collectors.toList());
+            question.setQuestionTags(questionTags);
+        } else {
+            List<QuestionTag> questionTags = new ArrayList<>();
+            question.setQuestionTags(questionTags);
         }
+
+        return question;
     }
 
     default QuestionDto.SimpleResponse questionToQuestionSimpleResponseDto(Question question) {

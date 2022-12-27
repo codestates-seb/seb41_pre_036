@@ -2,7 +2,7 @@ package com.codestates.preproject.member.entity;
 
 import com.codestates.preproject.answer.entity.Answer;
 import com.codestates.preproject.question.entity.Question;
-import com.codestates.preproject.vote.entity.Vote;
+import com.codestates.preproject.answervote.entity.Vote;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

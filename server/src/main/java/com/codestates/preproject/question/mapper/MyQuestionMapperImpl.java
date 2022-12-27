@@ -64,7 +64,7 @@ public class MyQuestionMapperImpl /*implements QuestionMapper*/ {
         questionResponseDto.setQuestionContent(question.getQuestionContent());
         questionResponseDto.setViews(question.getViews());
 
-        List<QuestionTag> questionTags = question.getQuestionTags();
+//        List<QuestionTag> questionTags = question.getQuestionTags();
 //        questionResponseDto.setTags(questionTagsToQuestionTagResponseDtos(questionTags));
 
         List<Answer> answers = question.getAnswers();
