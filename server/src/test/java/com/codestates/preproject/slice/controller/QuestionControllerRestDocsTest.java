@@ -1,6 +1,5 @@
 package com.codestates.preproject.slice.controller;
 
-import com.codestates.preproject.answer.dto.AnswerDto;
 import com.codestates.preproject.question.controller.QuestionController;
 import com.codestates.preproject.question.dto.QuestionDto;
 import com.codestates.preproject.question.entity.Question;

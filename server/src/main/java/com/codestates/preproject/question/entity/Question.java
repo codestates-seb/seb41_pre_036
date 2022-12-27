@@ -1,8 +1,7 @@
 package com.codestates.preproject.question.entity;
 
-import com.codestates.preproject.answer.entity.Answer;
+import com.codestates.preproject.answer.entity.AnswerEntity;
 import com.codestates.preproject.member.entity.Member;
-import com.mysql.cj.protocol.ColumnDefinition;
 import lombok.*;
 //import org.springframework.data.domain.Auditable;
 import com.codestates.preproject.audit.Auditable;
@@ -57,9 +56,10 @@ public class Question extends Auditable {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<QuestionTag> questionTags = new ArrayList<>();
 
+
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
-    @ToString.Exclude
-    private List<Answer> answers = new ArrayList<>();
+    private List<AnswerEntity> answers = new ArrayList<>();
 
     public Long getAnswerCount() {
         return answers.stream().count();
@@ -90,8 +90,7 @@ public class Question extends Auditable {
         this.questionTags = questionTags;
     }
 
-    @Override
-    public String toString() {
+ /*   public String toString() {
         return "Question{" +
                 "questionId=" + questionId +
                 ", questionTitle='" + questionTitle + '\'' +
@@ -102,5 +101,5 @@ public class Question extends Auditable {
                 ", questionTags=" + questionTags +
                 ", answers=" + answers +
                 '}';
-    }
+    }*/
 }

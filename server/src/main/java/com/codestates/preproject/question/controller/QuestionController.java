@@ -68,13 +68,13 @@ public class QuestionController {
     }
 
     // 기능3 = 특정 질문 1개 조회
-    @GetMapping("/{question-id}")
+/*    @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id") @Positive Long questionId) {
 //        System.out.println("questionId = " + questionId);
         Question question = questionService.findQuestion(questionId);
         System.out.println("questionTitle = " + question.getQuestionTitle());
         return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionDetailResponseDto(question)), HttpStatus.OK);
-    }
+    }*/
 
     // 기능4a = 'top questions' = 메인페이지 = 질문 전체 조회 + default로 newest순으로 정렬
     @GetMapping()

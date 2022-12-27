@@ -1,20 +1,14 @@
 package com.codestates.preproject.slice.service;
 
-import com.codestates.preproject.answer.entity.Answer;
-import com.codestates.preproject.answervote.entity.AnswerVote;
 import com.codestates.preproject.exception.BusinessLogicException;
 import com.codestates.preproject.member.entity.Member;
 import com.codestates.preproject.question.entity.Question;
 import com.codestates.preproject.question.entity.QuestionTag;
 import com.codestates.preproject.question.repository.QuestionRepository;
 import com.codestates.preproject.question.service.QuestionService;
-import com.codestates.preproject.tag.dto.TagDto;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;

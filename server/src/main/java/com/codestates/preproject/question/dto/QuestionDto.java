@@ -1,8 +1,6 @@
 package com.codestates.preproject.question.dto;
 
-import com.codestates.preproject.answer.dto.AnswerDto;
-import com.codestates.preproject.answer.entity.Answer;
-import com.codestates.preproject.question.entity.QuestionTag;
+import com.codestates.preproject.answer.dto.response.AnswerResponseDto;
 import com.codestates.preproject.tag.dto.TagDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,10 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -89,7 +85,7 @@ public class QuestionDto {
         private String questionContent;
         private Long views;
         private List<TagDto.Response> tags;
-        private List<AnswerDto.Response> answers;
+        private List<AnswerResponseDto> answers;
         private Long answerCount;
         private LocalDateTime createdAt;
         private LocalDateTime lastModifiedAt;

@@ -1,19 +1,14 @@
 package com.codestates.preproject.question.mapper;
 
-import com.codestates.preproject.answer.dto.AnswerDto;
-import com.codestates.preproject.answer.entity.Answer;
 import com.codestates.preproject.member.entity.Member;
 import com.codestates.preproject.question.dto.QuestionDto;
 import com.codestates.preproject.question.entity.Question;
 import com.codestates.preproject.question.entity.QuestionTag;
 import com.codestates.preproject.tag.dto.TagDto;
 import com.codestates.preproject.tag.entity.Tag;
-import com.codestates.preproject.tag.mapper.TagMapper;
-import com.codestates.preproject.tag.mapper.TagMapperImpl;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -134,7 +129,7 @@ public interface QuestionMapper {
             simpleResponse.setTags(tags);
         }
 
-        simpleResponse.setAnswerCount(question.getAnswerCount());
+ //       simpleResponse.setAnswerCount(question.getAnswerCount());
         simpleResponse.setCreatedAt(question.getCreatedAt());
         simpleResponse.setLastModifiedAt(question.getLastModifiedAt());
 
@@ -142,7 +137,7 @@ public interface QuestionMapper {
     }
 
     //    @Mapping(source = "member.memberId", target = "memberId")
-    default QuestionDto.DetailResponse questionToQuestionDetailResponseDto(Question question) {
+  /*  default QuestionDto.DetailResponse questionToQuestionDetailResponseDto(Question question) {
         if (question == null) {
             return null;
         } else {
@@ -174,7 +169,7 @@ public interface QuestionMapper {
         }
     }
 
-    default List<AnswerDto.Response> answerListToResponseList(List<Answer> list) {
+    default List<AnswerDto.Response> answerListToResponseList(List<AnswerEntity> list) {
         if (list == null) {
             return null;
         } else {
@@ -182,15 +177,15 @@ public interface QuestionMapper {
             Iterator var3 = list.iterator();
 
             while (var3.hasNext()) {
-                Answer answer = (Answer) var3.next();
-                list1.add(this.answerToResponse(answer));
+                AnswerEntity answerEntity = (AnswerEntity) var3.next();
+                list1.add(this.answerToResponse(answerEntity));
             }
 
             return list1;
         }
     }
 
-    default AnswerDto.Response answerToResponse(Answer answer) {
+    default AnswerDto.Response answerToResponse(AnswerEntity answer) {
         if (answer == null) {
             return null;
         } else {
@@ -204,7 +199,7 @@ public interface QuestionMapper {
             response.lastModifiedAt(answer.getLastModifiedAt());
             return response.build();
         }
-    }
+    }*/
 
     List<QuestionDto.SimpleResponse> questionsToQuestionSimpleResponseDtos(List<Question> questions);
 }

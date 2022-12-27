@@ -1,6 +1,5 @@
 package com.codestates.preproject.question.mapper;
 
-import com.codestates.preproject.answer.entity.Answer;
 import com.codestates.preproject.member.entity.Member;
 import com.codestates.preproject.question.dto.QuestionDto;
 import com.codestates.preproject.question.dto.QuestionTagDto;
@@ -67,7 +66,7 @@ public class MyQuestionMapperImpl /*implements QuestionMapper*/ {
 //        List<QuestionTag> questionTags = question.getQuestionTags();
 //        questionResponseDto.setTags(questionTagsToQuestionTagResponseDtos(questionTags));
 
-        List<Answer> answers = question.getAnswers();
+//        List<Answere> answers = question.getAnswers();
 //        AnswerMapper answerMapper = new MyAnswerMapperImpl();
 //        questionResponseDto.setAnswers(answerMapper.answersToAnswerResponseDtos(answers));
 
