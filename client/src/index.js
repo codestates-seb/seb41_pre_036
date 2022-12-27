@@ -7,6 +7,9 @@ import reset from "styled-reset";
 const GlobalStyle = createGlobalStyle`
 ${reset}
 :root{
+  *{
+    box-sizing: border-box;
+  }
     a{ 
       text-decoration: none;
     }
