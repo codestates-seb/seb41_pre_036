@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Header from "../../components/Header";
 import favicons from "../../assets/favicons.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/reducer";
 
 export const Container = styled.div`
   width: 100%;
@@ -138,6 +140,12 @@ export const LogoutFooter = styled.div`
 `;
 export default function Logout() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <>
       <Header />
@@ -226,7 +234,7 @@ export default function Logout() {
               <span>Log out on all devices</span>
             </GroupCheck>
             <div>
-              <EditBtn>Log out</EditBtn>
+              <EditBtn onClick={handleLogout}>Log out</EditBtn>
               <CancelBtn
                 onClick={() => {
                   navigate(-1);

@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import reset from "styled-reset";
+import { Provider } from "react-redux";
+import store from "./store/reducer";
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -29,8 +31,10 @@ const colorThem = {
 };
 
 root.render(
-  <ThemeProvider theme={colorThem}>
-    <GlobalStyle />
-    <App />
-  </ThemeProvider>
+  <Provider store={store}>
+    <ThemeProvider theme={colorThem}>
+      <GlobalStyle />
+      <App />
+    </ThemeProvider>
+  </Provider>
 );

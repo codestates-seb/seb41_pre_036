@@ -1,5 +1,7 @@
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import SignupSideInfo from "../../components/SignupSideInfo";
@@ -9,7 +11,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  min-height: calc(100vh - 50px);
+  min-height: 100vh;
   background-color: #f1f2f3;
 `;
 
@@ -279,6 +281,8 @@ const QuestionBox = styled.div`
 const QuestionMark = styled.a``;
 
 export default function Signup() {
+  const navigate = useNavigate();
+
   const EMAIL_REGEX =
     /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
   const PASSWORD_REGEX = /(?=.*\d)(?=.*[a-z]).{8,}/;
@@ -307,8 +311,9 @@ export default function Signup() {
     // required: { value: true, message: "닉네임을 입력해주세요." },
   });
 
-  const onSubmit = (data) => {
-    // console.log(data);
+  const onSubmit = async (data) => {
+    await axios.post(`http://localhost:3002/signup`, data);
+    navigate("/");
   };
   return (
     <>

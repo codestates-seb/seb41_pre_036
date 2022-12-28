@@ -1,7 +1,11 @@
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../../components/Header";
+import { login } from "../../store/reducer";
 
 export const LoginBox = styled.div`
   display: flex;
@@ -151,6 +155,9 @@ export const ErrorText = styled.p`
 `;
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -180,8 +187,10 @@ export default function Login() {
     },
   });
 
-  const onSubmit = (das) => {
-    console.log(das);
+  const onSubmit = async (data) => {
+    await axios.post(`http://localhost:3002/login`, data);
+    dispatch(login());
+    navigate("/");
   };
   return (
     <>

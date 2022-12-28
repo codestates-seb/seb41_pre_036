@@ -4,6 +4,7 @@ import styled from "styled-components";
 import LogoImg from "../assets/sprites.svg";
 import DefaultAvatar from "../assets/default-avatar.svg";
 import Icon from "../assets/favicons.png";
+import { useSelector } from "react-redux";
 
 export const Gnb = styled.header`
   position: fixed;
@@ -483,7 +484,7 @@ export const Lshape = styled.div`
 `;
 
 export default function Header() {
-  const [isLogin, setIsLogin] = useState(false);
+  const isLogin = useSelector((state) => state.isLogin);
   const [isSearch, setIsSearch] = useState(false);
   const [togglePopUp, setTogglePopUp] = useState(false);
   const [userInfo, setUserInfo] = useState();
