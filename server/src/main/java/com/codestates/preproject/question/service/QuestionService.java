@@ -102,7 +102,7 @@ public class QuestionService {
 
     // 기능4a = 'top questions' = 메인페이지 = 질문 전체 조회 + default로 newest순으로 정렬
     public Page<Question> findQuestionsByCreatedAt(int page, int size) {
-        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionId").descending())); // 답변 개수 순서대로 정렬하는 건 repository에서?
+        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("question_id").descending())); // 답변 개수 순서대로 정렬하는 건 repository에서?
     }
 
     public Page<Question> findQuestionsByTitleOrContent(String title, String content, int page, int size) {

@@ -51,8 +51,7 @@ public class Question extends Auditable {
         return member.getNickname();
     }
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST, targetEntity = QuestionTag.class, orphanRemoval = true)
-    @ToString.Exclude
+    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER,cascade = CascadeType.ALL, targetEntity = QuestionTag.class, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<QuestionTag> questionTags = new ArrayList<QuestionTag>();
 

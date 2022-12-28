@@ -16,9 +16,8 @@ public class QuestionTag extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionTagId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "QUESTION_ID")
-    @Setter
     private Question question;
 
     @ManyToOne

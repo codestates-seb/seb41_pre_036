@@ -30,7 +30,7 @@ public class AnswerEntity {
     private Question question;
 
     @OneToMany(mappedBy = "answerEntity", cascade = CascadeType.PERSIST)
-    private List<VoteEntity> answerVotes = new ArrayList<>();
+    private List<VoteEntity> votes = new ArrayList<>();
 
     @Column(length = 200)
     private String answer_content;
@@ -41,6 +41,18 @@ public class AnswerEntity {
     @Column(name = "answer_last_modified_at" , nullable = false)
     private LocalDateTime answer_last_modified_at = LocalDateTime.now();
 
+    public String getNickname() {
+        return member.getNickname();
+    }
+
+    public Long getVoteCount() {
+        Long voteCount = 0L;
+        for (VoteEntity vote : votes) {
+            voteCount += vote.getOpinion();
+        }
+        return voteCount;
+    }
+
     public Long getQuestionId() {
         return question.getQuestion_id();
     }
@@ -48,6 +60,4 @@ public class AnswerEntity {
     public Long getMember_id() {
         return member.getMember_id();
     }
-
-
 }

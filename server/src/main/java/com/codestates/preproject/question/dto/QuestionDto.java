@@ -1,5 +1,6 @@
 package com.codestates.preproject.question.dto;
 
+import com.codestates.preproject.answer.dto.response.AnswerDetailResDto;
 import com.codestates.preproject.answer.dto.response.AnswerResponseDto;
 import com.codestates.preproject.tag.dto.TagDto;
 import lombok.AllArgsConstructor;
@@ -85,7 +86,7 @@ public class QuestionDto {
         private String questionContent;
         private Long views;
         private List<TagDto.Response> tags;
-        private List<AnswerResponseDto> answers;
+        private List<AnswerDetailResDto> answers;
         private Long answerCount;
         private LocalDateTime createdAt;
         private LocalDateTime lastModifiedAt;

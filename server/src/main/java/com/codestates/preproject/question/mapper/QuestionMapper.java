@@ -1,5 +1,7 @@
 package com.codestates.preproject.question.mapper;
 
+import com.codestates.preproject.answer.dto.response.AnswerDetailResDto;
+import com.codestates.preproject.answer.entity.AnswerEntity;
 import com.codestates.preproject.member.entity.Member;
 import com.codestates.preproject.question.dto.QuestionDto;
 import com.codestates.preproject.question.entity.Question;
@@ -9,6 +11,7 @@ import com.codestates.preproject.tag.entity.Tag;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -135,15 +138,14 @@ public interface QuestionMapper {
 
         return simpleResponse;
     }
-
-    //    @Mapping(source = "member.memberId", target = "memberId")
-  /*  default QuestionDto.DetailResponse questionToQuestionDetailResponseDto(Question question) {
+//    @Mapping(source = "member.memberId", target = "memberId")
+    default QuestionDto.DetailResponse questionToQuestionDetailResponseDto(Question question) {
         if (question == null) {
             return null;
         } else {
             QuestionDto.DetailResponse detailResponse = new QuestionDto.DetailResponse();
-            detailResponse.setQuestionId(question.getQuestionId());
-            detailResponse.setMemberId(question.getMemberId());
+            detailResponse.setQuestionId(question.getQuestion_id());
+            detailResponse.setMember_id(question.getMember_id());
             detailResponse.setNickname(question.getNickname());
             detailResponse.setQuestionTitle(question.getQuestionTitle());
             detailResponse.setQuestionContent(question.getQuestionContent());
@@ -169,11 +171,11 @@ public interface QuestionMapper {
         }
     }
 
-    default List<AnswerDto.Response> answerListToResponseList(List<AnswerEntity> list) {
+    default List<AnswerDetailResDto> answerListToResponseList(List<AnswerEntity> list) {
         if (list == null) {
             return null;
         } else {
-            List<AnswerDto.Response> list1 = new ArrayList(list.size());
+            List<AnswerDetailResDto> list1 = new ArrayList(list.size());
             Iterator var3 = list.iterator();
 
             while (var3.hasNext()) {
@@ -185,21 +187,23 @@ public interface QuestionMapper {
         }
     }
 
-    default AnswerDto.Response answerToResponse(AnswerEntity answer) {
+    default AnswerDetailResDto answerToResponse(AnswerEntity answer) {
         if (answer == null) {
             return null;
         } else {
-            AnswerDto.Response.ResponseBuilder response = AnswerDto.Response.builder();
-            response.answerId(answer.getAnswerId());
-            response.memberId(answer.getMemberId());
-            response.nickname(answer.getNickname());
-            response.answerContent(answer.getAnswerContent());
-            response.voteCount(answer.getVoteCount());
-            response.createdAt(answer.getCreatedAt());
-            response.lastModifiedAt(answer.getLastModifiedAt());
-            return response.build();
+            AnswerDetailResDto response = new AnswerDetailResDto();
+            response.setAnswer_id(answer.getAnswer_id());
+            response.setMember_id(answer.getMember_id());
+            response.setNickname(answer.getNickname());
+            response.setQuestionId(answer.getQuestionId());
+            response.setAnswer_content(answer.getAnswer_content());
+            response.setVoteCount(answer.getVoteCount());
+            response.setAnswer_created_at(answer.getAnswer_created_at());
+            response.setAnswer_last_modified_at(answer.getAnswer_last_modified_at());
+
+            return response;
         }
-    }*/
+    }
 
     List<QuestionDto.SimpleResponse> questionsToQuestionSimpleResponseDtos(List<Question> questions);
 }
