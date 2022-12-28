@@ -1,4 +1,4 @@
-package com.codestates.preproject.member.service;
+package com.codestates.preproject.member.repository.service;
 
 import com.codestates.preproject.exception.BusinessLogicException;
 import com.codestates.preproject.exception.ExceptionCode;
@@ -18,12 +18,12 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public Member findMember(Long memberId) {
-        return findVerifiedMember(memberId);
+    public Member findMember(Long member_id) {
+        return findVerifiedMember(member_id);
     }
 
-    public Member findVerifiedMember(Long memberId) {
-        Optional<Member> optionalMember = memberRepository.findById(memberId);
+    public Member findVerifiedMember(Long member_id) {
+        Optional<Member> optionalMember = memberRepository.findById(member_id);
         Member verifiedMember = optionalMember.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return verifiedMember;

@@ -20,7 +20,7 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Post {
         @Positive
-        private Long memberId;
+        private Long member_id;
 
         @NotBlank(message = "제목은 필수 입력 항목입니다")
         @Length(min = 15, max = 150, message = "제목은 최소 15글자 ~ 최대 150글자로 구성됩니다")
@@ -62,7 +62,7 @@ public class QuestionDto {
     @NoArgsConstructor
     public static class SimpleResponse {
         private Long questionId;
-        private Long memberId;
+        private Long member_id;
         private String nickname;
         private String questionTitle;
         private String questionContent;
@@ -79,7 +79,7 @@ public class QuestionDto {
     @NoArgsConstructor
     public static class DetailResponse {
         private Long questionId;
-        private Long memberId;
+        private Long member_id;
         private String nickname;
         private String questionTitle;
         private String questionContent;

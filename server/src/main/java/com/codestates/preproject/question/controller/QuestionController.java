@@ -51,7 +51,7 @@ public class QuestionController {
 
         // 크리스마스 12h 여기부터 getMemberId() 관련해서 null pointer exception 발생
 //        System.out.println("dto로부터 엔티티로 매핑된 회원 식별자 = " + questionMapper.questionPostDtoToQuestion(requestBody).getMemberId()); // todo
-        Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(requestBody), requestBody.getMemberId());
+        Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(requestBody), requestBody.getMember_id());
 //        System.out.println("저장된 질문글의 회원 식별자 = " + question.getMemberId());
         return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionSimpleResponseDto(question)), HttpStatus.CREATED);
     }

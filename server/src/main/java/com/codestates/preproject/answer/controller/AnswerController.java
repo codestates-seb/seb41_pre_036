@@ -7,6 +7,8 @@ import com.codestates.preproject.answer.dto.response.AnswerPostResDto;
 import com.codestates.preproject.answer.entity.AnswerEntity;
 import com.codestates.preproject.answer.mapper.AnswerMapper;
 import com.codestates.preproject.answer.service.AnswerService;
+import com.codestates.preproject.member.entity.Member;
+import com.codestates.preproject.question.entity.Question;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +37,12 @@ public class AnswerController {
 
     @PostMapping
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostReqDto answerPostReqDto){
+
         AnswerEntity answerEntity = answerMapper.answerPostDtoTOAnswerEntity(answerPostReqDto);
         AnswerEntity response = answerService.createAnswer(answerEntity);
-
+        Question tempQ=response.getQuestion();
+        tempQ.setMember(response.getMember());
+        response.setQuestion(tempQ);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }

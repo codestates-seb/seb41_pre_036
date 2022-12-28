@@ -11,8 +11,11 @@ import javax.validation.constraints.Positive;
 @NoArgsConstructor
 public class AnswerPostReqDto {
     @Positive
-    private Long questionId;
-    
+    private Long question_id;
+
+    @Positive
+    private Long member_id;
+
     @NotBlank
     private String answer_content;
 

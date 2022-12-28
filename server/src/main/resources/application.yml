@@ -1,7 +1,8 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop  # (1) 스키마 자동 생성 create(-drop) vs none
+#      ddl-auto: create-drop  # (1) 스키마 자동 생성 create(-drop) vs none
+      ddl-auto: create
     show-sql: true      # (2) SQL 쿼리 출력
     properties:
       hibernate:
@@ -24,3 +25,5 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+    converters:
+      preferred-json-mapper: gson

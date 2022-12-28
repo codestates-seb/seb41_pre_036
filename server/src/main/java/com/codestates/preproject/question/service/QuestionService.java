@@ -2,11 +2,10 @@ package com.codestates.preproject.question.service;
 
 import com.codestates.preproject.exception.BusinessLogicException;
 import com.codestates.preproject.exception.ExceptionCode;
-import com.codestates.preproject.member.service.MemberService;
+import com.codestates.preproject.member.repository.service.MemberService;
 import com.codestates.preproject.question.entity.Question;
 import com.codestates.preproject.question.entity.QuestionTag;
 import com.codestates.preproject.question.repository.QuestionRepository;
-import com.codestates.preproject.tag.entity.Tag;
 import com.codestates.preproject.tag.service.TagService;
 import com.codestates.preproject.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +43,7 @@ public class QuestionService {
         return questionRepository.save(question);
     }
      */
-    public Question createQuestion(Question question, Long memberId) {
+    public Question createQuestion(Question question, Long member_id) {
 //        System.out.println(question.getQuestionTags().get(0).getTagWord()); //todo QuestionTag{questionTagId=null, question=null, tag=null}
         verifyQuestion(question);
 
@@ -56,13 +54,15 @@ public class QuestionService {
         // todo 본인이 작성한 글만 수정 가능
         verifyQuestion(question);
 //        System.out.println(question.toString());
-        Question verifiedQuestion = findVerifiedQuestion(question.getQuestionId());
+        Question verifiedQuestion = findVerifiedQuestion(question.getQuestion_id());
 //        System.out.println(verifiedQuestion);
 //        System.out.println("변경 전 태그 단어 = " + verifiedQuestion.getQuestionTags().get(0).getTagWord()); // todo 변경 전 태그 단어 = JavaScript
 //        Question updatedQuestion = beanUtils.copyNonNullProperties(question, verifiedQuestion);
 
-        Optional.ofNullable(question.getQuestionTitle()).ifPresent(questionTitle -> verifiedQuestion.setQuestionTitle(questionTitle));
-        Optional.ofNullable(question.getQuestionContent()).ifPresent(questionContent -> verifiedQuestion.setQuestionContent(questionContent));
+        Optional.ofNullable(question.getQuestionTitle())
+                .ifPresent(questionTitle -> verifiedQuestion.setQuestionTitle(questionTitle));
+        Optional.ofNullable(question.getQuestionContent())
+                .ifPresent(questionContent -> verifiedQuestion.setQuestionContent(questionContent));
 //        Optional.ofNullable(question.getQuestionTags()).ifPresent(questionTags -> verifiedQuestion.setQuestionTags(question.getQuestionTags())); // 변경 후 태그 단어 = null
 
         if (question.getQuestionTags() != null) {
@@ -125,7 +125,7 @@ public class QuestionService {
     public void verifyQuestion(Question question) {
         // 질문을 작성한 회원이 유효한지/존재하는지 확인
         if (question.getMember() != null) {
-            question.setMember(memberService.findVerifiedMember(question.getMemberId()));
+            question.setMember(memberService.findVerifiedMember(question.getMember_id()));
         }
 
         // 태그가 존재하는지 확인

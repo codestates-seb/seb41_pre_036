@@ -1,38 +1,20 @@
 package com.codestates.preproject.answer.mapper;
 
 import com.codestates.preproject.answer.dto.request.AnswerPatchReqDto;
-import com.codestates.preproject.answer.dto.request.AnswerPostReqDto;
 import com.codestates.preproject.answer.dto.response.AnswerResponseDto;
 import com.codestates.preproject.answer.entity.AnswerEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
-
-import com.codestates.preproject.question.entity.Question;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-27T22:23:18+0900",
+    date = "2022-12-28T15:20:19+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component
 public class AnswerMapperImpl implements AnswerMapper {
-
-    @Override
-    public AnswerEntity answerPostDtoTOAnswerEntity(AnswerPostReqDto answerPostReqDto) {
-        if ( answerPostReqDto == null ) {
-            return null;
-        }
-
-        AnswerEntity answerEntity = new AnswerEntity();
-        Question question = new Question();
-        question.setQuestionId(answerPostReqDto.getQuestionId());
-        answerEntity.setQuestion(question);
-        answerEntity.setAnswer_content( answerPostReqDto.getAnswer_content() );
-
-        return answerEntity;
-    }
 
     @Override
     public AnswerEntity answerPatchDtoToAnswerEntity(AnswerPatchReqDto answerPatchReqDto) {

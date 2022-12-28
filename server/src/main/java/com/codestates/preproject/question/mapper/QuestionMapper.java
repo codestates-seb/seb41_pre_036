@@ -25,7 +25,7 @@ public interface QuestionMapper {
         question.setQuestionContent(requestBody.getQuestionContent());
 
         Member member = new Member();
-        member.setMemberId(requestBody.getMemberId());
+        member.setMember_id(requestBody.getMember_id());
 
         if (requestBody.getTags() != null) {
             List<QuestionTag> questionTags = requestBody.getTags().stream().map(tagRequestDto -> {
@@ -79,7 +79,7 @@ public interface QuestionMapper {
 
         Question question = new Question();
 
-        question.setQuestionId(requestBody.getQuestionId());
+        question.setQuestion_id(requestBody.getQuestionId());
         question.setQuestionTitle(requestBody.getQuestionTitle());
         question.setQuestionContent(requestBody.getQuestionContent());
 
@@ -110,8 +110,8 @@ public interface QuestionMapper {
 
         QuestionDto.SimpleResponse simpleResponse = new QuestionDto.SimpleResponse();
 
-        simpleResponse.setQuestionId(question.getQuestionId());
-        simpleResponse.setMemberId(question.getMemberId());
+        simpleResponse.setQuestionId(question.getQuestion_id());
+        simpleResponse.setMember_id(question.getMember_id());
         simpleResponse.setNickname(question.getNickname());
         simpleResponse.setQuestionTitle(question.getQuestionTitle());
         simpleResponse.setQuestionContent(question.getQuestionContent());

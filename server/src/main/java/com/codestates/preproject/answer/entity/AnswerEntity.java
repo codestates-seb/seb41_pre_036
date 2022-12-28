@@ -1,7 +1,9 @@
 package com.codestates.preproject.answer.entity;
 
+import com.codestates.preproject.member.entity.Member;
 import com.codestates.preproject.question.entity.Question;
 import com.codestates.preproject.vote.entity.VoteEntity;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity
 public class AnswerEntity {
@@ -20,9 +21,9 @@ public class AnswerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answer_id;
 
-//    @ManyToOne
-//    @JoinColumn (name = "member_id")
-    private Long member_id;
+    @ManyToOne
+    @JoinColumn (name = "member_id")
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
@@ -41,7 +42,11 @@ public class AnswerEntity {
     private LocalDateTime answer_last_modified_at = LocalDateTime.now();
 
     public Long getQuestionId() {
-        return question.getQuestionId();
+        return question.getQuestion_id();
+    }
+
+    public Long getMember_id() {
+        return member.getMember_id();
     }
 
 

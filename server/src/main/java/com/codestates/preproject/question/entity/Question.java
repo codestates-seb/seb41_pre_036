@@ -23,7 +23,7 @@ import java.util.List;
 public class Question extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long questionId;
+    private Long question_id;
 
     @Column(length = 1000, nullable = false)
     private String questionTitle;
@@ -39,12 +39,12 @@ public class Question extends Auditable {
     private Long views;
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "member_id")
     @ToString.Exclude
     private Member member;
 
-    public Long getMemberId() {
-        return member.getMemberId();
+    public Long getMember_id() {
+        return member.getMember_id();
     }
 
     public String getNickname() {
@@ -54,7 +54,7 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST, targetEntity = QuestionTag.class, orphanRemoval = true)
     @ToString.Exclude
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<QuestionTag> questionTags = new ArrayList<>();
+    private List<QuestionTag> questionTags = new ArrayList<QuestionTag>();
 
 
 
@@ -74,15 +74,26 @@ public class Question extends Auditable {
         if (questionTag.getQuestion() != this) {
             questionTag.addQuestion(this);
         }
+
     }
 
     public void setQuestionTags(List<QuestionTag> questionTags) {
-        this.questionTags = questionTags;
+/*        this.questionTags = questionTags;
+        if (questionTags == null) {
+            this.questionTags = questionTags;
+        } else {
+            this.questionTags.retainAll(questionTags);
+            this.questionTags.addAll(questionTags);
+        }*/
+        this.questionTags.clear();
+        if (questionTags != null) {
+            this.questionTags.addAll(questionTags);
+        }
     }
 
     @Builder
     public Question(Long questionId, Member member, String questionTitle, String questionContent, List<QuestionTag> questionTags) {
-        this.questionId = questionId;
+        this.question_id = questionId;
         this.member = member;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;

@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     Page<Question> findByQuestionTitleContainingIgnoreCaseOrQuestionContentContainingIgnoreCase(String title, String content, PageRequest answerCount);
+
+//    @Override
+//    Question getById(Long aLong);
 }

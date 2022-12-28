@@ -14,6 +14,9 @@ public class AnswerPatchReqDto {
     @Positive
     private Long answer_id;
 
+    @Positive
+    private Long member_id;
+
     @NotBlank
     private String answer_content;
 

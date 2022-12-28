@@ -17,7 +17,7 @@ public class MyQuestionMapperImpl /*implements QuestionMapper*/ {
     public Question questionPostDtoToQuestion(QuestionDto.Post requestBody) {
         Question question = new Question();
         Member member = new Member();
-        member.setMemberId(requestBody.getMemberId());
+        member.setMember_id(requestBody.getMember_id());
         question.setMember(member);
         question.setQuestionTitle(requestBody.getQuestionTitle());
         question.setQuestionContent(requestBody.getQuestionContent());
@@ -57,8 +57,8 @@ public class MyQuestionMapperImpl /*implements QuestionMapper*/ {
     public QuestionDto.DetailResponse questionToQuestionDetailResponseDto(Question question) {
         QuestionDto.DetailResponse questionResponseDto = new QuestionDto.DetailResponse();
 
-        questionResponseDto.setQuestionId(question.getQuestionId());
-        questionResponseDto.setMemberId(question.getMember().getMemberId());
+        questionResponseDto.setQuestionId(question.getQuestion_id());
+        questionResponseDto.setMember_id(question.getMember().getMember_id());
         questionResponseDto.setQuestionTitle(question.getQuestionTitle());
         questionResponseDto.setQuestionContent(question.getQuestionContent());
         questionResponseDto.setViews(question.getViews());
