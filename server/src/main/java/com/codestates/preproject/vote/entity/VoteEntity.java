@@ -1,6 +1,7 @@
 package com.codestates.preproject.vote.entity;
 
 import com.codestates.preproject.answer.entity.AnswerEntity;
+import com.codestates.preproject.member.entity.Member;
 import com.codestates.preproject.vote.enums.OpinionEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,10 +26,10 @@ public class VoteEntity {
     @JoinColumn(name = "answer_id")
     private AnswerEntity answerEntity;
 
-//    @ManyToOne
-//    @MapsId(value = "memberId")
-//    @JoinColumn(name = "member_id")
-//    private MemberEntity memberEntity;
+    @ManyToOne
+    @MapsId(value = "memberId")
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     public VoteEntity (VoteId voteId, Integer opinion){
         this.voteId = voteId;

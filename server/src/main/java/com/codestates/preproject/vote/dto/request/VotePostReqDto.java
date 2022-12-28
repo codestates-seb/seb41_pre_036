@@ -17,7 +17,10 @@ public class VotePostReqDto {
 
 
     @Positive
-    private VoteId voteId;
+    private Long member_id;
+
+    @Positive
+    private Long answer_id;
 
     @VoteOpinion
     private Integer opinion;

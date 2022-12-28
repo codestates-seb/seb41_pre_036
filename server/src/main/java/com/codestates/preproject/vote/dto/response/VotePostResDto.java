@@ -14,6 +14,7 @@ import javax.validation.constraints.Positive;
 @AllArgsConstructor
 public class VotePostResDto {
 
+    @Positive
     private VoteId voteId;
 
     private Integer opinion;
