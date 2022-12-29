@@ -36,15 +36,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'mysql:mysql-connector-java'
 
-	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
-	implementation 'com.google.code.gson:gson'
+//	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+//	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+//	implementation 'com.google.code.gson:gson'
 
-	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
+	//https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+
 
 }
 
