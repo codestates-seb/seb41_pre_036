@@ -1,4 +1,4 @@
-package com.codestates.preproject.member.repository.service;
+package com.codestates.preproject.member.service;
 
 import com.codestates.preproject.exception.BusinessLogicException;
 import com.codestates.preproject.exception.ExceptionCode;

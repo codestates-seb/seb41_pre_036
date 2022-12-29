@@ -24,7 +24,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/questions")
+@RequestMapping("/v1/questions")
 @Validated
 public class QuestionController {
     //    private final static String QUESTION_DEFAULT_URL = "/questions";

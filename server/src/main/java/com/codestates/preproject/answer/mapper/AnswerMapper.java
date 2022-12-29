@@ -28,9 +28,8 @@ public interface AnswerMapper {
         Question question = new Question();
         question.setQuestion_id(answerPostReqDto.getQuestion_id());
         Member member = new Member();
-//        member.setMember_id(question.getMember_id());
         member.setMember_id(answerPostReqDto.getMember_id());
-//        member.setNickname("orangetree");
+//        member.setMember_id(question.getMember_id());
 
         answerEntity.setMember(member);
         answerEntity.setQuestion(question);

@@ -1,8 +1,7 @@
 package com.codestates.preproject.vote.mapper;
 
-import com.codestates.preproject.answer.entity.AnswerEntity;
-import com.codestates.preproject.member.entity.Member;
 import com.codestates.preproject.vote.dto.request.VotePostReqDto;
+//import com.codestates.preproject.vote.entity.VoteEntity;
 import com.codestates.preproject.vote.entity.VoteEntity;
 import org.mapstruct.Mapper;
 
@@ -12,16 +11,24 @@ public interface VoteMapper {
         if ( votePostReqDto == null ) {
             return null;
         }
+        /*
         AnswerEntity answerEntity = new AnswerEntity();
         answerEntity.setAnswer_id(votePostReqDto.getAnswer_id());
 
         Member member = new Member();
         member.setMember_id(votePostReqDto.getMember_id());
 
-        VoteEntity voteEntity = new VoteEntity();
-        voteEntity.setOpinion( votePostReqDto.getOpinion() );
+        VoteId voteId = new VoteId();
+        voteId.setMember_id(votePostReqDto.getMember_id());
+        voteId.setAnswer_id(votePostReqDto.getAnswer_id());
+         */
 
-        return voteEntity;
+        VoteEntity vote = new VoteEntity();
+//        vote.setVoteId(voteId);
+        vote.setMember_id(votePostReqDto.getMember_id());
+        vote.setAnswer_id(votePostReqDto.getAnswer_id());
+        vote.setOpinion( votePostReqDto.getOpinion() );
+
+        return vote;
     }
 }
-
