@@ -61,7 +61,7 @@ public class QuestionController {
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive Long questionId,
                                         @Valid @RequestBody QuestionDto.Patch requestBody) {
         requestBody.setQuestionId(questionId);
-        System.out.println(requestBody.getTags().get(0).getTagId()); // todo 수정된 태그 정보는 잘 넘어옴
+//        System.out.println(requestBody.getTags().get(0).getTagId()); // todo 수정된 태그 정보는 잘 넘어옴
         Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(requestBody));
 //        return ResponseEntity.ok(getLocation(question.getQuestionId()));
         return new ResponseEntity<>(new SingleResponseDto<>(questionMapper.questionToQuestionSimpleResponseDto(question)), HttpStatus.OK);

@@ -97,7 +97,7 @@ public interface QuestionMapper {
                 questionTag.addTag(tag);
                 return questionTag;
             }).collect(Collectors.toList());
-            question.setQuestionTags(questionTags);
+//            question.setQuestionTags(questionTags);
         } else {
             List<QuestionTag> questionTags = new ArrayList<>();
             question.setQuestionTags(questionTags);

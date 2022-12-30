@@ -65,22 +65,10 @@ public class QuestionService {
                 .ifPresent(questionContent -> verifiedQuestion.setQuestionContent(questionContent));
 //        Optional.ofNullable(question.getQuestionTags()).ifPresent(questionTags -> verifiedQuestion.setQuestionTags(question.getQuestionTags())); // 변경 후 태그 단어 = null
 
-        if (question.getQuestionTags() != null) {
-            List<QuestionTag> questionTags = question.getQuestionTags().stream().map(questionTag -> {
-                questionTag.addQuestion(question);
-                questionTag.addTag(tagService.findTag(questionTag.getTagId()));
-
-//                questionTag.setQuestion(question);
-//                questionTag.setTag();
-//                questionTag.getTag().setTagId(tagService.findTag(questionTag.getTagId()).getTagId());
-//                questionTag.getTag().setTagWord(tagService.findTag(questionTag.getTagId()).getTagWord());
-                return questionTag;
-            }).collect(Collectors.toList());
-
-            verifiedQuestion.setQuestionTags(questionTags);
-        }
-        System.out.println("변경 후 1번째 태그 단어 = " + verifiedQuestion.getQuestionTags().get(0).getTagWord()); // todo 변경 후 1번째 태그 단어 = Spring
-        System.out.println("변경 후 1번째 태그 번호 = " + verifiedQuestion.getQuestionTags().get(0).getTagId()); // todo 변경 후 1번째 태그 번호 = 4
+        Optional.ofNullable(question.getQuestionTags())
+                .ifPresent(questionTags -> verifiedQuestion.setQuestionTags(questionTags));
+//        System.out.println("변경 후 1번째 태그 단어 = " + verifiedQuestion.getQuestionTags().get(0).getTagWord()); // todo 변경 후 1번째 태그 단어 = Spring
+//        System.out.println("변경 후 1번째 태그 번호 = " + verifiedQuestion.getQuestionTags().get(0).getTagId()); // todo 변경 후 1번째 태그 번호 = 4
         // 이상 questionTags 객체들에도 필요한 데이터 다 반영한 것 같은데..
 
         Question updatedQuestion = questionRepository.save(verifiedQuestion);

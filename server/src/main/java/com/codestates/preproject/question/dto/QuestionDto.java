@@ -19,6 +19,7 @@ import java.util.List;
 public class QuestionDto {
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post {
         @Positive
         private Long member_id;
@@ -37,6 +38,7 @@ public class QuestionDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Patch {
         @Positive
         private Long questionId;
