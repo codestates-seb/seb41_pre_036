@@ -113,7 +113,7 @@ public class QuestionService {
     public void verifyQuestion(Question question) {
         // 질문을 작성한 회원이 유효한지/존재하는지 확인
         if (question.getMember() != null) {
-            question.setMember(memberService.findVerifiedMember(question.getMember_id()));
+            question.setMember(memberService.findMember(question.getMember_id()));
         }
 
         // 태그가 존재하는지 확인

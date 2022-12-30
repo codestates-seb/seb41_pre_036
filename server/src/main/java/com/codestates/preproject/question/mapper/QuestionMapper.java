@@ -115,7 +115,7 @@ public interface QuestionMapper {
 
         simpleResponse.setQuestionId(question.getQuestion_id());
         simpleResponse.setMember_id(question.getMember_id());
-        simpleResponse.setNickname(question.getNickname());
+        simpleResponse.setUserNickname(question.getUserNickname());
         simpleResponse.setQuestionTitle(question.getQuestionTitle());
         simpleResponse.setQuestionContent(question.getQuestionContent());
         simpleResponse.setViews(question.getViews());
@@ -146,7 +146,7 @@ public interface QuestionMapper {
             QuestionDto.DetailResponse detailResponse = new QuestionDto.DetailResponse();
             detailResponse.setQuestionId(question.getQuestion_id());
             detailResponse.setMember_id(question.getMember_id());
-            detailResponse.setNickname(question.getNickname());
+            detailResponse.setUserNickname(question.getUserNickname());
             detailResponse.setQuestionTitle(question.getQuestionTitle());
             detailResponse.setQuestionContent(question.getQuestionContent());
             detailResponse.setViews(question.getViews());
@@ -194,7 +194,7 @@ public interface QuestionMapper {
             AnswerDetailResDto response = new AnswerDetailResDto();
             response.setAnswer_id(answer.getAnswer_id());
             response.setMember_id(answer.getMember_id());
-            response.setNickname(answer.getNickname());
+            response.setUserNickname(answer.getUserNickname());
             response.setQuestionId(answer.getQuestionId());
             response.setAnswer_content(answer.getAnswer_content());
             response.setVoteCount(answer.getVoteCount());

@@ -41,8 +41,8 @@ public class AnswerEntity {
     @Column(name = "answer_last_modified_at" , nullable = false)
     private LocalDateTime answer_last_modified_at = LocalDateTime.now();
 
-    public String getNickname() {
-        return member.getNickname();
+    public String getUserNickname() {
+        return member.getUserNickname();
     }
 
     public Long getVoteCount() {

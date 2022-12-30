@@ -66,7 +66,7 @@ public class QuestionDto {
     public static class SimpleResponse {
         private Long questionId;
         private Long member_id;
-        private String nickname;
+        private String userNickname;
         private String questionTitle;
         private String questionContent;
         private Long views;
@@ -83,7 +83,7 @@ public class QuestionDto {
     public static class DetailResponse {
         private Long questionId;
         private Long member_id;
-        private String nickname;
+        private String userNickname;
         private String questionTitle;
         private String questionContent;
         private Long views;

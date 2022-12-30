@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class AnswerDetailResDto {
     private Long answer_id;
     private Long member_id;
-    private String nickname;
+    private String userNickname;
     private Long questionId;
     private String answer_content;
     private Long voteCount;

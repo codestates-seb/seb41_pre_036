@@ -47,8 +47,8 @@ public class Question extends Auditable {
         return member.getMember_id();
     }
 
-    public String getNickname() {
-        return member.getNickname();
+    public String getUserNickname() {
+        return member.getUserNickname();
     }
 
     @OneToMany(mappedBy = "question",fetch = FetchType.EAGER,cascade = CascadeType.ALL, targetEntity = QuestionTag.class, orphanRemoval = true)
