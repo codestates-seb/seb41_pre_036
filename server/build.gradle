@@ -48,9 +48,10 @@ dependencies {
 
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 //	implementation 'org.springframework.security:spring-security-test'
+//	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 //	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
 //	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '2.0.2'
-	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '4.2.11.RELEASE'
+//	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '4.2.11.RELEASE'
 //	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '6.0.1'
 	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
 //	implementation 'org.springframework.security:spring-security-core:5.7.5'
