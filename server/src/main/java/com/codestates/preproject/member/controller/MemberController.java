@@ -31,8 +31,9 @@ public class MemberController {
     private MemberRepository memberRepository;
 
     @Autowired
-
     private final MemberMapper mapper;
+
+    @Autowired
     private final MemberService memberService;
 
     //회원가입
