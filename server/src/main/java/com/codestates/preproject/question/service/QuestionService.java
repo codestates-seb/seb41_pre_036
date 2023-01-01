@@ -1,10 +1,12 @@
 package com.codestates.preproject.question.service;
 
+import com.codestates.preproject.auth.utils.LoggedInMemberInfoUtils;
 import com.codestates.preproject.exception.BusinessLogicException;
 import com.codestates.preproject.exception.ExceptionCode;
+import com.codestates.preproject.member.entity.Member;
+import com.codestates.preproject.member.repository.MemberRepository;
 import com.codestates.preproject.member.service.MemberService;
 import com.codestates.preproject.question.entity.Question;
-import com.codestates.preproject.question.entity.QuestionTag;
 import com.codestates.preproject.question.repository.QuestionRepository;
 import com.codestates.preproject.tag.service.TagService;
 import com.codestates.preproject.utils.CustomBeanUtils;
@@ -14,24 +16,27 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Transactional
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final MemberService memberService;
+    private final LoggedInMemberInfoUtils loggedInMemberInfoUtils;
     private final TagService tagService;
     //    private final StorageService storageService;
     private final CustomBeanUtils<Question> beanUtils;
+    private final MemberRepository memberRepository;
 
-    public QuestionService(QuestionRepository questionRepository, MemberService memberService, TagService tagService, CustomBeanUtils<Question> beanUtils) {
+    public QuestionService(QuestionRepository questionRepository, MemberService memberService, LoggedInMemberInfoUtils loggedInMemberInfoUtils, TagService tagService, CustomBeanUtils<Question> beanUtils,
+                           MemberRepository memberRepository) {
         this.questionRepository = questionRepository;
         this.memberService = memberService;
+        this.loggedInMemberInfoUtils = loggedInMemberInfoUtils;
         this.tagService = tagService;
         this.beanUtils = beanUtils;
+        this.memberRepository = memberRepository;
     }
 
     /*
@@ -45,14 +50,22 @@ public class QuestionService {
      */
     public Question createQuestion(Question question, Long member_id) {
 //        System.out.println(question.getQuestionTags().get(0).getTagWord()); //todo QuestionTag{questionTagId=null, question=null, tag=null}
-        verifyQuestion(question);
+        // 현재 로그인한 회원이 유효한지/존재하는지 확인 + 질문의 작성자가 되도록 세팅
+//        Long loggedInMemberId = loggedInMemberInfoUtils.extractMemberId();
+//        String loggedInMemberEmail = loggedInMemberInfoUtils.extractUsername();
+//        Member member = memberRepository.findByEmail(loggedInMemberEmail).get();
+        question.setMember(loggedInMemberInfoUtils.extractMember());
+
+//        verifyQuestion(question);
+        // 태그가 존재하는지 확인 -> 존재하면 질문 관련 태그로 등록/세팅
+        question.getQuestionTags().stream().forEach(questionTag -> questionTag.setTag(tagService.findVerifiedTag(questionTag.getTagId())));
 
         return questionRepository.save(question);
     }
 
     public Question updateQuestion(Question question) {
-        // todo 본인이 작성한 글만 수정 가능
-        verifyQuestion(question);
+        // 본인이 작성한 글만 수정 가능
+        verifyQuestionWriter(question.getQuestion_id());
 //        System.out.println(question.toString());
         Question verifiedQuestion = findVerifiedQuestion(question.getQuestion_id());
 //        System.out.println(verifiedQuestion);
@@ -98,7 +111,8 @@ public class QuestionService {
     }
 
     public void deleteQuestion(Long questionId) {
-        // todo 본인이 작성한 글만 수정 가능
+        // 본인이 작성한 글만 수정 가능
+        verifyQuestionWriter(questionId);
         Question findQuestion = findVerifiedQuestion(questionId);
         questionRepository.delete(findQuestion);
     }
@@ -110,14 +124,19 @@ public class QuestionService {
         return verifiedQuestion;
     }
 
-    public void verifyQuestion(Question question) {
+public Question verifyQuestion(Long questionId) {
+        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+        return optionalQuestion.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+
         // 질문을 작성한 회원이 유효한지/존재하는지 확인
+        /*
         if (question.getMember() != null) {
             question.setMember(memberService.findMember(question.getMember_id()));
         }
 
         // 태그가 존재하는지 확인
         question.getQuestionTags().stream().forEach(questionTag -> questionTag.setTag(tagService.findVerifiedTag(questionTag.getTagId())));
+         */
     }
     /*
     public void verifyQuestionTags(List<QuestionTag> questionTags) {
@@ -132,5 +151,14 @@ public class QuestionService {
     public Question updateViews(Question foundQuestion) {
         foundQuestion.setViews(foundQuestion.getViews() + 1);
         return questionRepository.save(foundQuestion);
+    }
+
+    public void verifyQuestionWriter(Long questionId) {
+        Long loggedInMemberId = loggedInMemberInfoUtils.extractMember().getMember_id();
+        Long questionWriterId = verifyQuestion(questionId).getMember_id();
+
+        if (loggedInMemberId != questionWriterId) {
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED_MEMBER);
+        }
     }
 }
