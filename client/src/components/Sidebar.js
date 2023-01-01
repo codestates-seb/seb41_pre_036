@@ -103,9 +103,11 @@ export default function Sidebar() {
               Tags
             </PublicList>
           </Link>
-          <PublicList selected={pathname === "/users" ? true : false}>
-            Users
-          </PublicList>
+          <Link to="/users">
+            <PublicList selected={pathname === "/users" ? true : false}>
+              Users
+            </PublicList>
+          </Link>
           <PublicList selected={pathname === "/companies" ? true : false}>
             Companies
           </PublicList>
