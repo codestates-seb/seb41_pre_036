@@ -45,12 +45,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String accessToken = delegateAccessToken(member);
         String refreshToken = delegateRefreshToken(member);
 
-        response.setHeader("Authorization", "Bearer" + accessToken);
+        response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
+        response.setHeader("member_id", String.valueOf(member.getMember_id()));
+        response.setHeader("UserNickname", member.getUserNickname());
     }
 
     private String delegateAccessToken(Member member) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("member_id", member.getMember_id());
         claims.put("username", member.getEmail());
         claims.put("roles", member.getRoles());
 
