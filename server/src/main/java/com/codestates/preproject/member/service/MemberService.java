@@ -36,6 +36,7 @@ public class MemberService {
         return memberRepository.save(member);
 
     }
+
     public Member findMember(Long member_id) {
         return findVerifiedMember(member_id);
     }
@@ -45,5 +46,9 @@ public class MemberService {
         Member verifiedMember = optionalMember.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return verifiedMember;
+    }
+
+    public List<Member> findMembers() {
+        return memberRepository.findAll();
     }
 }
