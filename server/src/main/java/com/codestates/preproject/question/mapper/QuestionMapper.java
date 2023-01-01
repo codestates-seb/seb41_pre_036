@@ -10,9 +10,7 @@ import com.codestates.preproject.tag.dto.TagDto;
 import com.codestates.preproject.tag.entity.Tag;
 import org.mapstruct.Mapper;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -31,7 +29,7 @@ public interface QuestionMapper {
         member.setMember_id(requestBody.getMember_id());
 
         if (requestBody.getTags() != null) {
-            List<QuestionTag> questionTags = requestBody.getTags().stream().map(tagRequestDto -> {
+            Set<QuestionTag> questionTags = requestBody.getTags().stream().map(tagRequestDto -> {
                 QuestionTag questionTag = new QuestionTag();
                 Tag tag = new Tag();
 
@@ -40,10 +38,10 @@ public interface QuestionMapper {
                 questionTag.addQuestion(question);
                 questionTag.addTag(tag);
                 return questionTag;
-            }).collect(Collectors.toList());
+            }).collect(Collectors.toSet());
             question.setQuestionTags(questionTags);
         } else {
-            List<QuestionTag> questionTags = new ArrayList<>();
+            Set<QuestionTag> questionTags = new HashSet<>();
             question.setQuestionTags(questionTags);
         }
 
@@ -99,7 +97,7 @@ public interface QuestionMapper {
             }).collect(Collectors.toList());
 //            question.setQuestionTags(questionTags);
         } else {
-            List<QuestionTag> questionTags = new ArrayList<>();
+            Set<QuestionTag> questionTags = new HashSet<>();
             question.setQuestionTags(questionTags);
         }
 
@@ -120,7 +118,7 @@ public interface QuestionMapper {
         simpleResponse.setQuestionContent(question.getQuestionContent());
         simpleResponse.setViews(question.getViews());
 
-        List<QuestionTag> questionTags = question.getQuestionTags();
+        Set<QuestionTag> questionTags = question.getQuestionTags();
         if (questionTags != null && !questionTags.isEmpty()) {
             List<TagDto.Response> tags = questionTags.stream()
                     .map(questionTag -> {
@@ -132,13 +130,14 @@ public interface QuestionMapper {
             simpleResponse.setTags(tags);
         }
 
- //       simpleResponse.setAnswerCount(question.getAnswerCount());
+        //       simpleResponse.setAnswerCount(question.getAnswerCount());
         simpleResponse.setCreatedAt(question.getCreatedAt());
         simpleResponse.setLastModifiedAt(question.getLastModifiedAt());
 
         return simpleResponse;
     }
-//    @Mapping(source = "member.memberId", target = "memberId")
+
+    //    @Mapping(source = "member.memberId", target = "memberId")
     default QuestionDto.DetailResponse questionToQuestionDetailResponseDto(Question question) {
         if (question == null) {
             return null;
@@ -151,7 +150,7 @@ public interface QuestionMapper {
             detailResponse.setQuestionContent(question.getQuestionContent());
             detailResponse.setViews(question.getViews());
 
-            List<QuestionTag> questionTags = question.getQuestionTags();
+            Set<QuestionTag> questionTags = question.getQuestionTags();
             if (questionTags != null && !questionTags.isEmpty()) {
                 List<TagDto.Response> tags = questionTags.stream()
                         .map(questionTag -> {

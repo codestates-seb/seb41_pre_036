@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@SpringBootApplication(scanBasePackages = {"org.springframework.security.crypto.password.PasswordEncoder"})
+@SpringBootApplication/*(scanBasePackages = {"org.springframework.security.crypto.password.PasswordEncoder"})*/
 @EnableJpaAuditing
 public class CodestatesPreprojectTeam36Application {
 

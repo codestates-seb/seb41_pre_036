@@ -25,7 +25,7 @@ public class AnswerEntity {
     @JoinColumn (name = "member_id")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 

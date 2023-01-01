@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberPostReqDto {
+    @NotBlank
     private String userNickname;
 
     @Email

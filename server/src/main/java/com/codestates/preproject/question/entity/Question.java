@@ -11,7 +11,9 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @DynamicInsert
 @DynamicUpdate
@@ -51,13 +53,12 @@ public class Question extends Auditable {
         return member.getUserNickname();
     }
 
-    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER,cascade = CascadeType.ALL, targetEntity = QuestionTag.class, orphanRemoval = true)
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = QuestionTag.class, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<QuestionTag> questionTags = new ArrayList<QuestionTag>();
+    private Set<QuestionTag> questionTags = new HashSet<QuestionTag>();
 
 
-
-    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AnswerEntity> answers = new ArrayList<>();
 
     public Long getAnswerCount() {
@@ -76,7 +77,7 @@ public class Question extends Auditable {
 
     }
 
-    public void setQuestionTags(List<QuestionTag> questionTags) {
+    public void setQuestionTags(Set<QuestionTag> questionTags) {
 /*        this.questionTags = questionTags;
         if (questionTags == null) {
             this.questionTags = questionTags;
@@ -91,7 +92,7 @@ public class Question extends Auditable {
     }
 
     @Builder
-    public Question(Long questionId, Member member, String questionTitle, String questionContent, List<QuestionTag> questionTags) {
+    public Question(Long questionId, Member member, String questionTitle, String questionContent, Set<QuestionTag> questionTags) {
         this.question_id = questionId;
         this.member = member;
         this.questionTitle = questionTitle;
