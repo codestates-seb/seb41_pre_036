@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import EditorComp from "../../components/EditorComp";
-import Tag from "../../components/Tag";
+import Tag from "../../components/main/Tag";
 import TitleCard, {
   FirstBodyCard,
   SecondBodyCard,
   TagCard,
-} from "../../components/creatQ/Card";
-import Discard from "../../components/creatQ/Discard";
+} from "../../components/main/Card";
+import Discard from "../../components/main/Discard";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import LayoutContainer from "../../components/LayoutContainer";

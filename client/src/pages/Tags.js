@@ -7,9 +7,10 @@ import PageContainer from "../components/PageContainer";
 import Sidebar from "../components/Sidebar";
 import axios from "axios";
 import { useEffect } from "react";
-import TagsHeader from "../components/TagsHeader";
+import TagsHeader from "../components/tag/TagsHeader";
 import styled from "styled-components";
-import TagCard from "../components/TagCard";
+import TagCard from "../components/tag/TagCard";
+import Pagination from "../components/Pagination";
 
 const TagsBox = styled.div`
   padding: 24px;
@@ -130,6 +131,14 @@ export default function Tags() {
                 <TagCard key={idx} name={tag.name} count={tag.count} />
               ))}
             </TagBoxGrid>
+            <Pagination
+              total={tags.length}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+              setLimit={setLimit}
+              disable
+            />
           </TagsBox>
         </PageContainer>
       </LayoutContainer>
