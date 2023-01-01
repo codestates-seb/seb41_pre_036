@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import styled from "styled-components";
 import NotFound from "./pages/NotFound";
 import QuestionDetail from "./pages/Questions/QuestionDetail";
 import QuestionsList from "./pages/Questions/QuestionsList";
@@ -9,7 +8,7 @@ import Logout from "./pages/Register/Logout";
 import Tags from "./pages/Tags";
 import Users from "./pages/Users";
 import Mypage from "./pages/Mypage";
-import Header from "./components/Header";
+import QuestionAsk from "./pages/Questions/QuestionAsk";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/:questionId",
     element: <QuestionDetail />,
+  },
+  {
+    path: "/ask",
+    element: <QuestionAsk />,
   },
   {
     path: "/login",

@@ -53,11 +53,10 @@ export default function QuestionsList() {
 
   return (
     <>
-     <Header />
+      <Header />
       <Sidebar />
       <LayoutContainer>
-        <PageContainer>
-        </PageContainer>
+        <PageContainer></PageContainer>
       </LayoutContainer>
       <Footer />
     </>

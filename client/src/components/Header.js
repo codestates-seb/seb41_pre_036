@@ -4,6 +4,7 @@ import styled from "styled-components";
 import LogoImg from "../assets/sprites.svg";
 import DefaultAvatar from "../assets/default-avatar.svg";
 import Icon from "../assets/favicons.png";
+import { useSelector } from "react-redux";
 
 export const Gnb = styled.header`
   position: fixed;
@@ -14,11 +15,11 @@ export const Gnb = styled.header`
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
     0 2px 8px hsla(0, 0%, 0%, 0.05);
   border-top: 3px solid #f48223;
-  box-sizing: border-box;
+
   z-index: 2;
   > div {
     display: flex;
-    box-sizing: border-box;
+
     width: 100%;
     max-width: 1215px;
     padding: 0 12px 0 0;
@@ -74,7 +75,6 @@ export const Logo = styled.div`
   margin-left: 15px;
   cursor: pointer;
   @media screen and (min-width: 641px) {
-    width: 150px;
     padding: 0 8px;
     margin-left: 0;
   }
@@ -205,7 +205,7 @@ export const Search = styled.input`
   top: 61px;
   width: calc(100% - 20px);
   height: 32.6px;
-  box-sizing: border-box;
+
   padding-left: 34px;
   border: 1px solid hsl(210, 8%, 75%);
   border-radius: 2px;
@@ -357,7 +357,7 @@ export const MobileSearchButton = styled.div`
 
 export const Button = styled.div`
   height: 30px;
-  box-sizing: border-box;
+
   padding: 8.4px 8px 6.4px 8px;
   border-radius: 2px;
   border: 1px solid black;
@@ -384,7 +384,7 @@ export const LogoutPop = styled.div`
   top: 44px;
   width: 100vw;
   background-color: hsl(210, 8%, 95%);
-  box-sizing: border-box;
+
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
     0 2px 8px hsla(0, 0%, 0%, 0.05);
   @media screen and (min-width: 641px) {
@@ -484,7 +484,7 @@ export const Lshape = styled.div`
 `;
 
 export default function Header() {
-  const [isLogin, setIsLogin] = useState(true);
+  const isLogin = useSelector((state) => state.isLogin);
   const [isSearch, setIsSearch] = useState(false);
   const [togglePopUp, setTogglePopUp] = useState(false);
   const [userInfo, setUserInfo] = useState();
@@ -496,9 +496,11 @@ export default function Header() {
           <MobileMenuBtn>
             <span></span>
           </MobileMenuBtn>
-          <Logo>
-            <p></p>
-          </Logo>
+          <Link to="/">
+            <Logo>
+              <p></p>
+            </Logo>
+          </Link>
           <MenuNav>
             {isLogin ? (
               <p className="disabled">Products</p>
