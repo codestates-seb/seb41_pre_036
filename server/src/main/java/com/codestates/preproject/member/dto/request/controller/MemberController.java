@@ -1,4 +1,4 @@
-package com.codestates.preproject.member.controller;
+package com.codestates.preproject.member.dto.request.controller;
 
 import com.codestates.preproject.member.dto.request.MemberPostReqDto;
 import com.codestates.preproject.member.entity.Member;
